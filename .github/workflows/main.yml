@@ -1,0 +1,21 @@
+name: Windows CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Windows command
+        run: echo Hello from Windows GitHub Actions!
+
+      - name: Check PowerShell version
+        shell: pwsh
+        run: $PSVersionTable.PSVersion
