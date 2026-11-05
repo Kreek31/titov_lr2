@@ -31,7 +31,9 @@ jobs:
 
       # 4. Создаем документацию
       - name: Create .html file
-        run: python -B -m pydoc -w documentation
+        run: |
+          python -B -m pydoc -w functions
+          Rename-Item functions.html documentation.html
 
       - name: Commit documentation
         if: github.event_name == 'push'
