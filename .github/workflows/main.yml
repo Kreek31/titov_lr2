@@ -26,8 +26,10 @@ jobs:
         run: python -m unittest discover -s tests
 
       # 4. Создаем документацию
-      - name: Create documentation
+      - name: Create .html file
         run: python -B -m pydoc -w functions
+
+      - name: Create documentation from .html file
         uses: actions/upload-artifact@v4
         with:
           name: documentation
