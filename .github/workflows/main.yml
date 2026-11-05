@@ -23,8 +23,15 @@ jobs:
 
       # 3. Запускаем тесты
       - name: Run tests
-        run: |
-          python -m unittest discover -s tests
+        run: python -m unittest discover -s tests
+
+      # 4. Создаем документацию
+      - name: Create documentation
+        run: python -B -m pydoc -w functions
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: functions.html
 
       - name: Check PowerShell version
         shell: pwsh
