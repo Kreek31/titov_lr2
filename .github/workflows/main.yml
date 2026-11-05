@@ -31,10 +31,13 @@ jobs:
 
       # 4. Создаем документацию
       - name: Create .html file
+        shell: pwsh
         run: |
+          if (Test-Path documentation.html) {
+                Remove-Item documentation.html
+            }
           python -B -m pydoc -w functions
           Rename-Item functions.html documentation.html -Force
-        shell: pwsh
 
       - name: Commit documentation
         if: github.event_name == 'push'
