@@ -5,6 +5,10 @@ on:
     branches: ['**']
   pull_request:
     branches: ['**']
+
+
+permissions:
+  contents: write
   
 
 jobs:
@@ -27,13 +31,15 @@ jobs:
 
       # 4. Создаем документацию
       - name: Create .html file
-        run: python -B -m pydoc -w functions
+        run: python -B -m pydoc -w documentation
 
-      - name: Create documentation from .html file
-        uses: actions/upload-artifact@v4
+      - name: Commit documentation
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          name: documentation
-          path: functions.html
+          commit_message: "docs: update generated documentation"
+          file_pattern: documentation.html
+          branch: ${{ github.ref_name }}
 
       - name: Check PowerShell version
         shell: pwsh
